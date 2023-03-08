@@ -1,0 +1,203 @@
+/* CSS reset */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+    margin:0;
+    padding:0;
+}
+html,body {
+    margin:0;
+    padding:0;
+}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+fieldset,img { 
+    border:0;
+}
+input{
+    border:1px solid #b0b0b0;
+    padding:3px 5px 4px;
+    color:#979797;
+    width:190px;
+}
+address,caption,cite,code,dfn,th,var {
+    font-style:normal;
+    font-weight:normal;
+}
+ol,ul {
+    list-style:none;
+}
+caption,th {
+    text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-size:100%;
+    font-weight:normal;
+}
+q:before,q:after {
+    content:'';
+}
+abbr,acronym { border:0;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.dark-mode{
+    background-color: #F8CBA6 !important;
+}
+
+
+.container-login{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /* padding: 15px; */
+    background: #f2f2f2
+}
+
+.form{
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 77px 55px 33px;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 10%);
+}
+
+.form-title{
+    display: block;
+    font-family: Poppins-Bold;
+    font-size: 30px;
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+.form i{
+    display: block;
+    font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.form input{
+    font-family: Poppins-Regular;
+    font-size: 15px;
+    color: #555;
+    line-height: 1.2;
+    display: block;
+    width: 100%;
+    height: 45px;
+    background: 0 0;
+    padding: 0 5px;
+    margin-bottom: 37px;
+    border: 1px solid #eee;
+    outline: none;
+    transition: .25s linear;
+}
+.form input:focus{
+    border-color: #6a7dfe ;
+}
+.form input:not(:placeholder-shown) + .formlabel,
+.form input:focus + .formlabel{
+    top: 0;
+    padding:0 10px;
+    display: inline-block;
+    background-color: #fff;
+    color: #6a7dfe;
+    transition: .25s linear;
+}
+
+.form-field{
+    position: relative;
+}
+.formlabel{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    left: 5px;
+    user-select: none;
+    color: #999;
+    pointer-events: none;
+}
+.login-btn{
+    font-family: Poppins-Medium;
+    background: -webkit-linear-gradient(right,#21d4fd,#b721ff);
+    font-size: 15px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+}
+
+.login-btn:hover{
+    cursor: pointer;
+}
+
+.another{
+    margin-top: 100px;
+}
+
+.sign-up{
+    text-decoration: none;
+    color: #000;
+}
+
+.sign-up:hover{
+    color: #6a7dfe;
+}
+
+.Choose-menu{
+    background-image: url('https://cdn.tgdd.vn/Files/2022/05/11/1431711/buffet-la-gi-cac-loai-hinh-buffet-pho-bien-va-luu-y-khi-an-buffet-202205110925406172.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top center;
+    width: 349px;
+    height: 177px;
+}
+
+.choose-list{
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.choose-item{
+    height: 40px;
+    background-color: rgb(250, 35, 35);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 3);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 10%);
+    font-size: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform linear .25s;
+    text-shadow: 0 0 1px rgb(255, 255, 255);;
+}
+
+.choose-item:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.05)
+}
+
