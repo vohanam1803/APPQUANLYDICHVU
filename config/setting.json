@@ -1,0 +1,10 @@
+{
+	"mongodb": {
+		"username": "Thobong_20011803",
+		"password": "sa",
+		"database": "NHAHANGSIRI"
+	},
+	"jwt": {
+		"secret": "goK!pusp6ThEdURUtRenOwUhAsWUCLheBazl!uJLPlS8EbreWLdrupIwabRAsiBu"
+	}
+}
