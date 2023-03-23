@@ -15,14 +15,13 @@ router.use('/home', require(__dirname + '/home'));
 router.use('/Order', require(__dirname + '/order'));
 ///Food
 router.use('/food', require(__dirname + '/food'));
+///OrderFood
+router.use('/orderFood', require(__dirname + '/orderFood'));
 //Giao dien chinh
 router.get('/', function (req, res) {
   res.render("dangnhap");
 });
 
 
-router.get('/orderFood', function (req, res) {
-  res.render("order.ejs");
-});
 
 module.exports = router;
