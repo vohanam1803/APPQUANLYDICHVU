@@ -14,4 +14,8 @@ router.use('/Order', require(__dirname + '/order'));
 router.get('/', function (req, res) {
   res.render("dangnhap");
 });
+
+router.get('/orderFood', function (req, res) {
+  res.render("order.ejs");
+});
 module.exports = router;

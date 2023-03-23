@@ -161,43 +161,349 @@ abbr,acronym { border:0;
     color: #6a7dfe;
 }
 
-.Choose-menu{
-    background-image: url('https://cdn.tgdd.vn/Files/2022/05/11/1431711/buffet-la-gi-cac-loai-hinh-buffet-pho-bien-va-luu-y-khi-an-buffet-202205110925406172.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: top center;
-    width: 349px;
-    height: 177px;
+/* Choose css */
+
+.Choose-menu {
+    height: 100vh;
 }
 
-.choose-list{
-    height: 180px;
+.Choose-title {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.Choose-title h3 {
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.5em;
+    padding-bottom: 30px;
+    font-family: "Playfair Display", serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #111;
+}
+
+.Choose-title h3:before {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    width: 60%;
+    left: 50%;
+    margin-left: -30%;
+    height: 1px;
+    content: "";
+    background-color: #777;
+    z-index: 1;
+}
+
+.Choose-title h3:after {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    margin-left: -20px;
+    bottom: 0px;
+    content: '\00a7';
+    font-size: 30px;
+    line-height: 40px;
+    color: #c50000;
+    font-weight: 400;
+    z-index: 5;
+    display: block;
+    background-color: #fff;
+}
+
+.choose-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+    list-style: none;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.choose-item {
+    font-size: 36px;
+    font-weight: 600;
+    color: rgb(255, 6, 6);
+    height: 100%;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    transition: transform linear .25s;
+}
+
+.choose-item:nth-child(1) {
+    background: url('https://cdn.tgdd.vn/Files/2022/05/11/1431711/buffet-la-gi-cac-loai-hinh-buffet-pho-bien-va-luu-y-khi-an-buffet-202205110925406172.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.choose-item:nth-child(2) {
+    background: url('https://statics.vincom.com.vn/xu-huong/buffet/An-Duoc-Phuc-buffet.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.choose-item:nth-child(3) {
+    background: url('https://cdn.tgdd.vn/2021/04/CookProduct/JangWon-Korean-BBQ(1)-1200x676.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+.choose-item:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.05)
+}
+
+/* Tablet css */
+
+header{
+    background-color: #000000;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding: 0 2rem;
+}
+
+.header_title{
+    font-size: 2rem;
+    display: inline-block;
+}
+
+marquee{
+    width: 15rem;
+    margin-left: 1rem;
+}
+.header_user{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+.header__user-img{
+    width: 1.5rem;
+}
+
+.user-name{
+    padding: 0 1rem;
+}
+
+.user-menu{
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 150px;
+    list-style: none;
+    border-radius: 2px;
+    background-color: #fff;
+    z-index: 1;
+    box-shadow: 0 1px 5px #666;
+    display: none;
+}
+
+.user-menu::before{
+    content: "";
+    border-width: 10px 20px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+    position: absolute;
+    right: 10px;
+    top: -18px;
+}
+
+.user-menu::after{
+    content: "";
+    display: block;
+    position: absolute;
+    top:-10px;
+    right: 0;
+    width: 100%;
+    height: 10px;
+}
+
+.header_user:hover .user-menu{
+    display: block;
+}
+
+.user-item a{
+    text-decoration: none;
+    color: #757575;
+    font-size: 1rem;
+    padding: 8px 16px;
+    display: block;
+}
+
+.user-item a:hover{
+    color: #DF2E38;
+}
+
+.container{
+    display: flex;
+}
+
+.category{
+    background-color: #232323;
+    color: #fff;
+    width: 20%;
+    height: calc(100vh - 4rem);
+
+}
+
+.category__heading{
+    margin: 0;
+    padding: 1rem;
+    text-align: center;
+}
+
+.category-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.active .category-item__link{
+    background-color: #DF2E38;
+}
+
+.category-item__link{
+    color: #fff;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    padding: 20px 10px;
+    font-size: 1.1rem;
+}
+
+.content{
+    width: 80%;
+    height: calc(100vh - 4rem);
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.food{
+    display: flex;
+    margin: 10px;
+    /* height: 150px; */
+    flex: 1;
+}
+
+.food-info{
+    padding: 10px;
+}
+
+.food-title{
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 10px 0;
+}
+
+.food-order{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.food-order::after{
+    content: "";
+    border-width: 20px;
+    border-style: solid;
+    border-color: transparent #fff transparent transparent;
+    position: absolute;
+    left: -30px;
+    top : -70%;
+
+}
+
+.food-img img{
+    --size-img: 250px;
+    width: var(--size-img);
+    height: var(--size-img);
+    /* background-repeat: no-repeat;
+    background-size: contain;
+    background-position: top center; */
+    /* border-top-left-radius: 2px;
+    border-top-right-radius: 2px; */
+}
+
+.food-order-btn{
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: #DF2E38;
+    color: #fff;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.cart{
+    z-index: 1;
+    position: fixed;
+    bottom: 0;
+    left: 253px;
+    display: flex;
+    height: 3rem;
+    width: 20rem;
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.cart-left{
+    display: flex;
+    background-color: rgb(91, 91, 91);
+    flex: 1;
     align-items: center;
     justify-content: space-around;
 }
 
-.choose-item{
-    height: 40px;
-    background-color: rgb(250, 35, 35);
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgb(255, 255, 3);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 10%);
-    font-size: 25px;
-    font-weight: 600;
+.cart-right{
+    background-color: #DF2E38;
+    flex: 1;
+    text-align: center;
+    line-height: 48px;
+    color: #fff;
+}
+
+.cart-wrap{
+    position: relative;
+    display: inline-block;
+    padding: 0 12px;
     cursor: pointer;
-    transition: transform linear .25s;
-    text-shadow: 0 0 1px rgb(255, 255, 255);;
 }
 
-.choose-item:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.05)
+.cart-wrap i{
+    color: var(--white-color);
+    font-size: 2rem;
+    color: #fff;
 }
 
+.cart-notice{
+    position: absolute;
+    padding: 1px 7px;
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+    top: -7px;
+    right: -4px;
+    background-color:  #fff;
+    border-radius: 10px;
+    border: 2px solid rgb(91, 91, 91);
+}
+
+.total-price{
+    color: #fff;
+}
