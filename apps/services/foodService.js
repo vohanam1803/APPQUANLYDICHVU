@@ -1,44 +1,37 @@
-var express = require("express");
-const { ObjectId } = require("mongodb");
-var router = express.Router();
-var CategoryFood = require("./../model/loaimonan");
-var Food = require("./../model/monan");
-var OrderService = require("./../services/orderservice");
-var foodService = require("./../services/foodService");
-router.get("/", async function (req, res) {
-	var foodservice = new foodService();
-	var order = await foodservice.getFood();
-	res.json(order);
-});
-router.post("/insertOneFood", async function (req, res) {
-	if (req.body.CategoryFood == "" || req.body.NameFood == "" || req.body.NameFood == null || req.body.CategoryFood == null) {
-		res.json({ status: false, message: "Missing data CategoryFood / NameFood!!" });
+const { ObjectId } = require('mongodb');
+var config = require("./../../config/setting.json");
+class foodService {
+	databaseConnection = require('./../database/database');
+	order = require('./../model/loaimonan');
+	food = require('./../model/monan');
+	client;
+	productDatabase;
+	productCollection;
+	constructor() {
+		this.client = this.databaseConnection.getMongoClient();
+		this.productDatabase = this.client.db(config.mongodb.database);
+		this.productCollection = this.productDatabase.collection("LoaiMonAn");
+		this.productCollection2 = this.productDatabase.collection("MonAn");
 	}
-	else {
-		var foodservice = new foodService();
-		var pro = new Food();
-		pro.CategoryFood = req.body.CategoryFood;
-		pro.NameFood = req.body.NameFood;
-		pro.Price = req.body.Price;
-		pro.Image = req.body.Image;
-		const result = await foodservice.insertFood(pro);
-		if (result === 2) {
-			res.json({ status: false, message: "Already exist!!" });
+	async getFood() {
+		const cursor = await this.productCollection2.find({}, {}).skip(0).limit(100);
+		return await cursor.toArray();
+	}
+	async insertFood(food) {
+		const a = await this.productCollection2.findOne({
+			"NameFood": food.NameFood
+		}, {});
+		if (a == "" || a == null) {
+			return await this.productCollection2.insertOne(food);
 		}
 		else {
-			res.json({ status: true, message: "Insert Success!!" });
+			return 2;
 		}
-
 	}
-});
-router.delete("/deleteOneFood", async function (req, res) {
-	if (req.body.id == "" || req.body.id == null) {
-		res.json({ status: false, message: "Missing data id!!" });
+	async deleteFood(id) {
+		return await this.productCollection2.deleteOne({
+			"_id": new ObjectId(id)
+		});
 	}
-	else {
-		var foodservice = new foodService();
-		await foodservice.deleteFood(req.body.id);
-		res.json({ status: true, message: "Delete Success!!" });
-	}
-});
-module.exports = router;
+}
+module.exports = foodService;

@@ -10,6 +10,7 @@ router.get("/", async function (req, res) {
 	var order = await foodservice.getFood();
 	res.json(order);
 });
+
 router.post("/insertOneFood", async function (req, res) {
 	if (req.body.CategoryFood == "" || req.body.NameFood == "" || req.body.NameFood == null || req.body.CategoryFood == null) {
 		res.json({ status: false, message: "Missing data CategoryFood / NameFood!!" });
