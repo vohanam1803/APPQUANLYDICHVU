@@ -17,6 +17,8 @@ router.use('/Order', require(__dirname + '/order'));
 router.use('/food', require(__dirname + '/food'));
 ///OrderFood
 router.use('/orderFood', require(__dirname + '/orderFood'));
+///OrderFood
+router.use('/orderTable', require(__dirname + '/orderTable'));
 //Giao dien chinh
 router.get('/', function (req, res) {
   res.render("dangnhap");
