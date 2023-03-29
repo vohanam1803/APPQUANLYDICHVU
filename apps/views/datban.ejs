@@ -5,73 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sơ đồ bàn</title>
 </head>
 
 <body>
     <div class="container">
         <div class="content">
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
+            <% for(let i=0; i < data.length; i++) { %>
 
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
-            <div class="table">
-                <div class="title">B1</div>
-                <div class="descripstion">(2 -4 người)</div>
-            </div>
+                <a class="table" href="/orderTable/choose?name=<%= data[i].NameTable %>">
+                    <div class="title">
+                        <%= data[i].NameTable %>
+                    </div>
+                    <div class="descripstion">
+                        <%= data[i].Position %>
+                    </div>
+
+                </a>
+
+
+                <% } %>
         </div>
     </div>
     <footer>
@@ -111,6 +64,7 @@
             border: 1px solid #FE6244;
             border-radius: 2px;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .title {
@@ -118,6 +72,7 @@
             padding: 5px;
             border-bottom: 1px solid #FE6244;
             text-align: center;
+
         }
 
         .descripstion {

@@ -13,6 +13,9 @@
   <div class="Choose-menu">
     <div class="Choose-title">
       <h3>Buffet</h3>
+      <h3>
+        <%= data.name %>
+      </h3>
     </div>
     <ul class="choose-list">
       <li class="choose-item">169K</li>
@@ -21,6 +24,21 @@
     </ul>
   </div>
 
+  <div class="divClass" id="demo">null</div>
+  <!-- <script>
+    callAPi();
+    async function callAPi() {
+      var demo = document.getElementById("demo");
+      const response = await fetch("http://localhost:3000/food");
+      var data = await response.json();
+      console.log(data);
+      var htmlStr = "";
+      for (var i = 0; i < data.length; i++) {
+        htmlStr += `<div onclick="clickItem('${data[i]._id}')"> ${data[i]._id}  ---  ${data[i].CategoryFood} ---  ${data[i].Price} </div>`;
+      }
+      demo.innerHTML = htmlStr;
+    }
+  </script> -->
 </body>
 
 </html>

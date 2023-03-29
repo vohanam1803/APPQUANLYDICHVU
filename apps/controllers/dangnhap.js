@@ -1,21 +1,25 @@
 var express = require("express");
 var UserService = require("./../services/userService");
 var User = require("./../model/user");
+
 var router = express.Router();
+////////Biến cục bộ////////
 
+/////////Chức năng////////
 router.get("/", function (req, res) {
-  res.render("dangnhap");
+  res.render('dangnhap');
 });
-
+//API login
 router.post("/enteruser", async function (req, res) {
   var userService = new UserService();
+  console.log(req.body)
   var pro = new User();
   pro.email = req.body.email;
   pro.password = req.body.password;
   // console.log(pro.email);
   const result = await userService.Loginuser(pro);
   if (result === 1) {
-    res.json({ "Message": "Tai khoan khong ton tai!!" });
+    res.json({ "Message": "Tài khoản không tồn tại!!" });
   }
   else {
 
@@ -25,7 +29,8 @@ router.post("/enteruser", async function (req, res) {
       res.json({ "Message": "Login Failed!!" });
     }
   }
-
 });
+
+
 module.exports = router;
 

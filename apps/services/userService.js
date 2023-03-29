@@ -16,7 +16,6 @@ class UserService {
 		const a = await this.productCollection.findOne({
 			"email": req.email
 		}, {});
-		console.log(a);
 		if (a == "" || a == null) {
 			return 1;
 		}
