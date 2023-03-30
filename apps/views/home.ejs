@@ -45,7 +45,7 @@
 
       var htmlStr = "";
       for (var i = 0; i < data.length; i++) {
-        htmlStr += `<li class="choose-item" style="background-image:url(${data[i].Image})">${data[i].Price}</li>`;
+        htmlStr += `<li class="choose-item">${data[i].Price}</li>`;
       }
       demo.innerHTML = htmlStr;
     }

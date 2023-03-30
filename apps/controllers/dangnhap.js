@@ -48,7 +48,7 @@ router.post("/signup", async function (req, res) {
   }
   else {
 
-    res.json(asc.email);
+    res.json({ "Message": "Success SignUp !!" });
   }
 
 });
