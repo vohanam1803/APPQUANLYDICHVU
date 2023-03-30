@@ -13,32 +13,63 @@
   <div class="Choose-menu">
     <div class="Choose-title">
       <h3>Buffet</h3>
-      <h3>
-        <%= data.name %>
+      <h3 id="NT">
+
       </h3>
     </div>
-    <ul class="choose-list">
-      <li class="choose-item">169K</li>
+    <ul class="choose-list" id="demo">
+      <!-- <li class="choose-item">169K</li>
       <li class="choose-item">269k</li>
-      <li class="choose-item">369K</li>
+      <li class="choose-item">369K</li> -->
     </ul>
   </div>
 
-  <div class="divClass" id="demo">null</div>
-  <!-- <script>
-    callAPi();
-    async function callAPi() {
-      var demo = document.getElementById("demo");
-      const response = await fetch("http://localhost:3000/food");
+  <script>
+    var proApi = 'http://localhost:3000/home/listBuffet';
+    var proApi2 = 'http://localhost:3000/home/dataTable';
+    var demo = document.getElementById("demo");
+    var NT = document.getElementById("NT");
+    createPro();
+    async function createPro() {
+      var option = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify()
+
+      }
+      const response = await fetch(proApi, option);
       var data = await response.json();
       console.log(data);
+
       var htmlStr = "";
       for (var i = 0; i < data.length; i++) {
-        htmlStr += `<div onclick="clickItem('${data[i]._id}')"> ${data[i]._id}  ---  ${data[i].CategoryFood} ---  ${data[i].Price} </div>`;
+        htmlStr += `<li class="choose-item">${data[i].Price}</li>`;
       }
       demo.innerHTML = htmlStr;
     }
-  </script> -->
+
+
+    createPro2()
+    async function createPro2() {
+      var option = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify()
+
+      }
+      const response = await fetch(proApi2, option);
+      var data = await response.json();
+      console.log(data);
+      var htmlStr = "";
+      htmlStr += `<div style="color: red;">${data.NameTableNow}</div>`;
+      NT.innerHTML = htmlStr;
+    }
+  </script>
+
 </body>
 
 </html>

@@ -22,7 +22,10 @@ router.use('/orderTable', require(__dirname + '/orderTable'));
 router.get('/', function (req, res) {
   res.redirect("/login");
 });
-
+//Chat
+router.get("/chat", function (req, res) {
+  res.render("chat");
+});
 
 
 module.exports = router;

@@ -6,6 +6,9 @@ var ProductService = require("./../services/productService");
 router.get("/", function (req, res) {
 	res.json({ "message": "this is product" });
 });
+router.get("/API", function (req, res) {
+	res.render("product");
+});
 router.get("/product-list", async function (req, res) {
 	var productService = new ProductService();
 	var product = await productService.getProductList();
