@@ -1,4 +1,3 @@
-const { use } = require('../controllers');
 var config = require("./../../config/setting.json");
 class DatabaseConnection {
 	url;

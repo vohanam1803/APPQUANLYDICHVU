@@ -24,6 +24,8 @@ app.use("/public", express.static(__dirname + "/public"));
 var server = app.listen(3000, function () {
   console.log("Server is running");
 });
-
+process.on('warning', e => {
+  console.warn(e.stack);
+});
 var io = socketio(server);
 var socketcontroller = require("./apps/controllers/chatcontroller")(io);
