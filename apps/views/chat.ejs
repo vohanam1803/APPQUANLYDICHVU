@@ -1,0 +1,65 @@
+<html>
+
+<head>
+	<title></title>
+</head>
+
+<body>
+	<input id="username" type="text" />
+	<ul id="messages"></ul>
+
+	<input id="message" autocomplete="off" />
+	<button onclick="sendmessage();">Send</button>
+
+</body>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script>
+	var qs = (function (a) {
+		if (a == "") return {};
+		var b = {};
+		for (var i = 0; i < a.length; ++i) {
+			var p = a[i].split('=', 2);
+			if (p.length == 1)
+				b[p[0]] = "";
+			else
+				b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+		}
+		return b;
+	})(window.location.search.substr(1).split('&'));
+
+	var username = document.getElementById("username");
+	username.value = qs["username"];
+	var socket = io();
+	var conversation = document.getElementById('conversation');
+	var input = document.getElementById('message');
+
+	function sendmessage() {
+		if (input.value) {
+			var data = {
+				"sender": username.value,
+				"message": input.value
+			};
+			socket.emit('chat message', data);
+			input.value = '';
+		}
+
+	}
+
+
+	socket.on("connect", function () {
+
+		socket.emit("adduser", username.value);
+	});
+
+
+	socket.on('chat message', function (data) {
+		var item = document.createElement('li');
+		item.textContent = data.sender + ": " + data.message;
+		messages.appendChild(item);
+		window.scrollTo(0, document.body.scrollHeight);
+	});
+
+
+</script>
+
+</html>

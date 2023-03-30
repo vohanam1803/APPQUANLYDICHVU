@@ -10,21 +10,8 @@
 
 <body>
     <div class="container">
-        <div class="content">
-            <% for(let i=0; i < data.length; i++) { %>
+        <div class="content" id="NT">
 
-                <a class="table" href="/orderTable/choose?name=<%= data[i].NameTable %>">
-                    <div class="title">
-                        <%= data[i].NameTable %>
-                    </div>
-                    <div class="descripstion">
-                        <%= data[i].Position %>
-                    </div>
-
-                </a>
-
-
-                <% } %>
         </div>
     </div>
     <footer>
@@ -97,6 +84,88 @@
             cursor: pointer;
         }
     </style>
+    <!-- <script>
+        callAPI();
+        async function callAPI() {
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    productList: Object
+                },
+                methods: {
+
+                },
+                mounted: async function () {
+                    const response = await fetch("/orderTable/ViewAllTable");
+                    var jsonResponse = await response.json();
+                    this.productList = jsonResponse;
+
+                    console.log(this.productList);
+                }
+            })
+        }
+
+    </script> -->
+    <script>
+        var proApi = 'http://localhost:3000/orderTable/ViewAllTable';
+        var Api = 'http://localhost:3000/home/getData';
+        var NT = document.getElementById("NT");
+
+        createPro()
+        async function createPro() {
+            var option = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify()
+
+            }
+            const response = await fetch(proApi, option);
+            var data = await response.json();
+            console.log(data);
+            var htmlStr = "";
+            // var htmlStr2 = "";
+            for (var i = 0; i < data.length; i++) {
+                htmlStr += `<div class="table" onclick="clickItem('${data[i].NameTable}')">
+                <div class="title">
+                    <input class="title" name="NameTable"  data-id="${data[i].NameTable}" hidden>${data[i].NameTable}
+                </div>
+
+                <div class="descripstion">
+                    <input class="title" name="Position" data-id="${data[i].Position}" hidden>${data[i].Position}
+                </div>
+
+
+            </div>`;
+
+            }
+            NT.innerHTML = htmlStr;
+        }
+        ///
+
+        async function requestData(data) {
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+
+            }
+            const response = await fetch(Api, option);
+            var logdata = await response.json();
+            console.log(logdata);
+            window.location = "http://localhost:3000/home";
+        }
+        function clickItem(NameTable) {
+            var data = {
+                NameTable: NameTable,
+            }
+            requestData(data)
+        }
+    </script>
+
 </body>
 
 </html>

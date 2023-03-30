@@ -1,5 +1,5 @@
 var express = require("express");
-
+var socketio = require("socket.io");
 
 var app = express();
 
@@ -24,3 +24,6 @@ app.use("/public", express.static(__dirname + "/public"));
 var server = app.listen(3000, function () {
   console.log("Server is running");
 });
+
+var io = socketio(server);
+var socketcontroller = require("./apps/controllers/chatcontroller")(io);
