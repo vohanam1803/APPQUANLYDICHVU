@@ -29,5 +29,18 @@ class UserService {
 		}
 	}
 
+	async Signupuser(req) {
+		const a = await this.productCollection.findOne({
+			"email": req.email
+		}, {});
+		if (a == "" || a == null) {
+			return await this.productCollection.insertOne(req);
+		
+		}
+		else {
+			return 2;
+		}
+	}
+
 }
 module.exports = UserService;
