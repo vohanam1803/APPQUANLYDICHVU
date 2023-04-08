@@ -14,10 +14,9 @@
 
 <body>
     <header>
-        <div class="header_logo">
+        <div class="header_logo" id="NT">
             <div class="header_title">PTD</div>
-            <marquee behavior="scroll" direction="left">Quý khách xin lưu ý: 1:gia vị và nước ngọt tự tính phí theo đầu
-                người</marquee>
+
         </div>
 
         <div class="header_user">
@@ -36,11 +35,11 @@
     </header>
     <div class="container">
         <nav class="category">
-            <h3 class="category__heading">
+            <h3 class="category__heading" style="color: red;" onclick="ClickBack()">
                 Danh mục
             </h3>
-            <ul class="category-list">
-                <li class="category-item active">
+            <ul class="category-list" id="DM">
+                <!-- <li class="category-item active">
                     <a href="#" class="category-item__link">Giới thiệu món mới</a>
                 </li>
                 <li class="category-item">
@@ -54,12 +53,12 @@
                 </li>
                 <li class="category-item">
                     <a href="#" class="category-item__link">Món ăn vặt</a>
-                </li>
+                </li> -->
             </ul>
         </nav>
 
-        <div class="content">
-            <div class="food">
+        <div class="content" id="Food">
+            <!-- <div class="food">
                 <div class="food-img">
                     <img src="https://t.vietgiaitri.com/2020/2/7/cach-lam-sui-cao-nhan-tom-thit-mem-min-dam-da-vi-trung-hoa-959.jpg"
                         alt="">
@@ -142,24 +141,348 @@
                     <button class="food-order-btn">+</button>
                 </div>
 
-            </div>
+            </div> -->
 
-            <div class="cart">
-                <div class="cart-left">
-                    <div class="cart-wrap">
-                        <i class="cart-icon fa-solid fa-cart-shopping"></i>
-                        <span class="cart-notice">3</span>
-                    </div>
-                    <div class="total-price">210000 đ</div>
+        </div>
+        <div class="cart" id="Cart">
+            <div class="cart-left">
+                <div class="cart-wrap">
+                    <i class="cart-icon fa-solid fa-cart-shopping"></i>
+                    <span class="cart-notice" id="orderFood"></span>
                 </div>
-                <div class="cart-right">
-                    Giỏ hàng
-                </div>
+                <div class="total-price">210000 đ</div>
+            </div>
+            <div class="cart-right" onclick="ClickInfo()">
+                Giỏ hàng
             </div>
         </div>
+    </div>
+    <script>
+        //Lấy số bàn
+        var NT = document.getElementById("NT");
+        var proApi = 'http://localhost:3000/Order/dataTable';
+        createPro()
+        async function createPro() {
+            var option = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify()
 
-    </div>
-    </div>
+            }
+            const response = await fetch(proApi, option);
+            var data = await response.json();
+            console.log(data);
+            var htmlStr = "";
+            htmlStr += `<marquee behavior="scroll" direction="left" id="Soban">Bàn: ${data.NameTableNow}</marquee>`;
+            NT.innerHTML = htmlStr;
+            VaoTrang()
+        }
+
+        //Lấy danh mục FOOD
+        var DM = document.getElementById("DM");
+        var proApi2 = 'http://localhost:3000/Order/getDanhMucFood';
+        createPro2()
+        async function createPro2() {
+            var option = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify()
+
+            }
+            const response = await fetch(proApi2, option);
+            var data = await response.json();
+            console.log(data);
+            var htmlStr = "";
+            for (var i = 0; i < data.length; i++) {
+                htmlStr += `<li class="category-item">
+                    <a href="#" onclick="clickItem('${data[i].NameFood}')" class="category-item__link">${data[i].NameFood}</a>
+                </li>`;
+            }
+            DM.innerHTML = htmlStr;
+        }
+        //Lấy toàn bộ món ăn
+        var Food = document.getElementById("Food");
+        var proApi3 = 'http://localhost:3000/Order/getAllFOOD';
+        createPro3()
+        async function createPro3() {
+            var option = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify()
+
+            }
+            const response = await fetch(proApi3, option);
+            var data = await response.json();
+            console.log(data);
+            var htmlStr = "";
+            for (var i = 0; i < data.length; i++) {
+                htmlStr += `<div class="food">
+                <div class="food-img">
+                    <img src="${data[i].Image}"
+                        alt="">
+                </div>
+                <div class="food-order">
+                    <div class="food-info">
+                        <div class="food-title">${data[i].NameFood}</div>
+                        <div class="food-price">${data[i].Price}</div>
+                    </div>
+                    <button class="food-order-btn" onclick="clickFood('${data[i].NameFood}')" data-id="${data[i].Price}">+</button>
+                </div>
+
+            </div>`;
+            }
+            Food.innerHTML = htmlStr;
+        }
+        //Click Danh Muc FOOD
+        var FoodClick = document.getElementById("FoodClick");
+        function clickItem(NameFood) {
+            console.log(NameFood)
+            var data = {
+                NameFood: NameFood,
+            }
+            requestData(data)
+        }
+        var proApi4 = 'http://localhost:3000/Order/getCLickDanhMuc';
+        var proApi5 = 'http://localhost:3000/Order/getGetDanhMuc';
+        async function requestData(data) {
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+
+            }
+            var option2 = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify()
+
+            }
+            const response = await fetch(proApi4, option);
+            //var logdata = await response.json();
+            //console.log(logdata);
+            const response2 = await fetch(proApi5, option2);
+            var logdata2 = await response.json();
+            console.log(logdata2);
+            Food.innerHTML = "";
+            var htmlStr = "";
+            for (var i = 0; i < logdata2.length; i++) {
+                htmlStr += `<div class="food">
+                <div class="food-img">
+                    <img src="${logdata2[i].Image}"
+                        alt="">
+                </div>
+                <div class="food-order">
+                    <div class="food-info">
+                        <div class="food-title">${logdata2[i].NameFood}</div>
+                        <div class="food-price">${logdata2[i].Price}</div>
+                    </div>
+                    <button class="food-order-btn" onclick="clickFood('${logdata2[i].NameFood}')" data-id="${logdata2[i].Price}">+</button>
+                </div>
+
+            </div>`;
+            }
+            Food.innerHTML = htmlStr;
+        }
+        ///Back 
+        function ClickBack() {
+            var Food = document.getElementById("Food");
+            var proApi3 = 'http://localhost:3000/Order/getAllFOOD';
+            createPro3()
+            async function createPro3() {
+                var option = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify()
+
+                }
+                const response = await fetch(proApi3, option);
+                var data = await response.json();
+                console.log(data);
+                var htmlStr = "";
+                for (var i = 0; i < data.length; i++) {
+                    htmlStr += `<div class="food">
+                <div class="food-img">
+                    <img src="${data[i].Image}"
+                        alt="">
+                </div>
+                <div class="food-order">
+                    <div class="food-info">
+                        <div class="food-title">${data[i].NameFood}</div>
+                        <div class="food-price">${data[i].Price}</div>
+                    </div>
+                    <button class="food-order-btn" onclick="clickFood('${data[i].NameFood}')" data-id="${data[i].Price}">+</button>
+                </div>
+
+            </div>`;
+                }
+                Food.innerHTML = htmlStr;
+            }
+        }
+        //Order
+        async function clickFood(NameFood) {
+            console.log("Food:" + NameFood)
+            var Soban = document.getElementById("Soban").innerHTML;
+            console.log("SoBan:" + Soban)
+            var Price = event.currentTarget.getAttribute('data-id');
+            console.log("Gia:" + Price)
+            var currentDateTime = new Date();
+            const hours = currentDateTime.getHours();
+            const minutes = currentDateTime.getMinutes();
+            console.log("Time:" + hours + minutes)
+            var data = {
+                NameFood: NameFood,
+                Soban: Soban,
+                Price: Price,
+                TimeOrder: "Time:" + hours + "h" + minutes + "m",
+            }
+            await requestFood(data)
+            updateGioHang(data)
+        }
+
+        var ApiClickFood = 'http://localhost:3000/orderFood/GetFood';
+        async function requestFood(data) {
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+
+            }
+            const response = await fetch(ApiClickFood, option);
+            var logdata = await response.json();
+            console.log(logdata);
+
+        }
+        //Click Info
+        var orderFood = document.getElementById("orderFood");
+        var ApiGioHang = 'http://localhost:3000/orderFood/GioHang';
+        async function updateGioHang(data) {
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+            const response = await fetch(ApiGioHang, option);
+            var data = await response.json();
+            console.log(data.length);
+            var htmlStr = "";
+            htmlStr += `${data.length}`;
+            orderFood.innerHTML = htmlStr;
+        }
+
+
+        //Vao trang
+        function VaoTrang() {
+            var Soban = document.getElementById("Soban").innerHTML;
+            console.log("SoBanHientai:" + Soban)
+            var DemBan = {
+                Soban: Soban,
+            }
+            updateTrangGioHang(DemBan)
+        }
+        async function updateTrangGioHang(DemBan) {
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(DemBan)
+            }
+            const response = await fetch(ApiGioHang, option);
+            var data = await response.json();
+            console.log(data.length);
+            var htmlStr = "";
+            htmlStr += `${data.length}`;
+            orderFood.innerHTML = htmlStr;
+        }
+        //Click info ban
+        function ClickInfo() {
+            var Soban = document.getElementById("Soban").innerHTML;
+            console.log("SoBanHientai:" + Soban)
+            var DemBan = {
+                Soban: Soban,
+            }
+            Hienra(DemBan)
+        }
+        var LayfoodofTable = 'http://localhost:3000/orderFood/LayFoodOfTable';
+        async function Hienra(DemBan) {
+            var Food = document.getElementById("Food");
+            var Cart = document.getElementById("Cart");
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(DemBan)
+
+            }
+            const response = await fetch(LayfoodofTable, option);
+            var data = await response.json();
+            console.log(data);
+            var htmlStr = "<div>The Table Of Food</div>";
+            var htmlStr2 = "";
+            htmlStr2 += `<div class="cart-left">
+                <div class="total-price">Pay</div>
+            </div>
+            <div class="cart-right" onclick="ThanhToan()">
+                ThanhToan
+            </div>`;
+            for (var i = 0; i < data.length; i++) {
+                htmlStr += `
+                <div class="food">
+                <div class="food-order">
+                    <div class="food-info">
+                        <div class="food-title">${data[i].NameFood}</div>
+                        <div class="food-price">${data[i].Price}</div>
+                        <div class="food-price">${data[i].TimeOrder}</div>
+                        <div class="food-price">${data[i].NumberTable}</div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            Food.innerHTML = htmlStr;
+            Cart.innerHTML = htmlStr2;
+        }
+        //Click Thanhtoan
+        function ThanhToan() {
+            var Soban = document.getElementById("Soban").innerHTML;
+            console.log("SoBanHientai:" + Soban)
+            var DemBan = {
+                Soban: Soban,
+            }
+            TinhTong(DemBan)
+        }
+        var Pay = 'http://localhost:3000/orderFood/LayFoodOfTable';
+        async function TinhTong(DemBan) {
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(DemBan)
+
+            }
+            const response = await fetch(Pay, option);
+            var data = await response.json();
+            console.log(data);
+            window.location = "http://localhost:3000/bill";
+        }
+    </script>
 </body>
 
 </html>

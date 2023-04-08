@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./public/css/style.css">
-    <title>Document</title>
+    <title>Bill</title>
 </head>
 
 <body>
@@ -24,41 +24,40 @@
                 </div>
                 <div class="receipt"> <span>**</span> Receipt <span>**</span> </div>
                 <div class="table-info flex-between">
-                    <div class="table-number">
-                        Số bàn: 35
+                    <div class="table-number" id="Soban" style="color: black;">
+                        <!-- Số bàn: 35 -->
                     </div>
-                    <div class="number-customer">
-                        Số khách: 7
+                    <div class="number-customer" id="Sb">
+
                     </div>
                 </div>
             </div>
             <div class="bill-content">
-                <div class="product flex-between">
-                    <div class="product-info">
-                        <div class="quantity">1</div>
-                        <div class="product-name">Trà Thạch Đào M</div>
-                    </div>
-                    <div class="price">55.000</div>
+                <div id="Food">
+
                 </div>
-                <div class="product flex-between">
+
+                <!-- <div class="product flex-between">
                     <div class="product-info">
                         <div class="quantity">1</div>
                         <div class="product-name">Trà Thạch Đào S</div>
                     </div>
                     <div class="price">40.000</div>
-                </div>
+                </div> -->
+
                 <div class="total flex-between">
                     <div class="total-name">Total</div>
-                    <div class="total-price">95.000</div>
+                    <div class="cash-price" id="Sum"></div>
                 </div>
+
                 <div class="cash flex-between">
                     <div class="cash-name">Cash</div>
                     <div class="cash-price">100.000</div>
                 </div>
-                <div class="amt flex-between">
+                <!-- <div class="amt flex-between">
                     <div class="amt-name">Change amt</div>
                     <div class="amt-price">5.000</div>
-                </div>
+                </div> -->
             </div>
             <div class="bill-footer">
                 1. Thời gian kinh doanh của nhà hàng: 10:00 - 24:00. Nếu có mọi thắc mắc xin vui lòng liên hệ
@@ -67,6 +66,113 @@
         </div>
 
     </div>
+    <div class="receipt"> <span>**</span> <button onclick="ClickBill()" class="center-button">Accept Bill</button>
+        <span>**</span>
+    </div>
+
+
+    <script>
+        //Lấy số bàn
+        var Soban = document.getElementById("Soban");
+        var Sb = document.getElementById("Sb");
+        var proApi = 'http://localhost:3000/Order/dataTable';
+
+        createPro()
+        async function createPro() {
+            var option = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify()
+
+            }
+            const response = await fetch(proApi, option);
+            var data = await response.json();
+            console.log(data);
+            var htmlStr = "";
+            var htmlStr2 = "";
+            htmlStr += `Bàn: ${data.NameTableNow}`;
+            htmlStr2 += `${data.NameTableNow}`;
+            Soban.innerHTML = htmlStr;
+            Sb.innerHTML = htmlStr2;
+            await Hienra()
+        }
+        //Info Order
+        var LayfoodofTable = 'http://localhost:3000/orderFood/LayFoodOfTable';
+
+        async function Hienra() {
+            var arr = [];
+            var Ban = document.getElementById("Soban").innerHTML;
+            console.log("SoBanHientai:" + Ban)
+            var Food = document.getElementById("Food");
+            var SumAcc = document.getElementById("Sum");
+            var DemBan = {
+                Soban: Ban,
+            }
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(DemBan)
+
+            }
+            const response = await fetch(LayfoodofTable, option);
+            var data = await response.json();
+            console.log(data);
+            var htmlStr = "";
+            var htmlStr2 = "";
+            for (var i = 0; i < data.length; i++) {
+                htmlStr += `<div class="product flex-between">
+                <div class="product-info">
+                        <div class="quantity">-</div>
+                        <div class="product-name">${data[i].NameFood}</div>
+                    </div>
+                    <div class="price">${data[i].Price}</div>
+                     </div>`;
+                console.log("Price:" + data[i].Price)
+                arr.push(parseFloat(data[i].Price));
+            }
+
+            Food.innerHTML = htmlStr;
+
+            console.log("Mang arr:" + arr);
+            var tong = 0;
+            for (var i = 0; i < arr.length; i++) {
+                tong += arr[i];
+            }
+            htmlStr2 += `${tong}`;
+            SumAcc.innerHTML = htmlStr2;
+            console.log("Tongla:" + tong);
+        }
+        //Accept
+        var BackHome = 'http://localhost:3000/Order/CheckOutBill';
+        async function ClickBill() {
+            var Ban = document.getElementById("Soban").innerHTML;
+            console.log("Left:" + Ban)
+            var Banphu = document.getElementById("Sb").innerHTML;
+            console.log("Right:" + Banphu)
+            var dataGet = {
+                Soban: Ban,
+                Soban2: Banphu,
+            }
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataGet)
+
+            }
+            const response = await fetch(BackHome, option);
+            var data = await response.json();
+            console.log(data);
+            window.location = "http://localhost:3000/orderTable";
+        }
+
+
+    </script>
 </body>
 
 </html>

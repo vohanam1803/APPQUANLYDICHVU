@@ -3,8 +3,9 @@ const { ObjectId } = require("mongodb");
 var router = express.Router();
 var Table = require("./../model/table");
 var TableService = require("./../services/tableService");
-const querystring = require('querystring');
 
+var status = require("./../model/StatusTable");
+var statusService = require("./../services/statusService");
 router.get("/", async function (req, res) {
 	//var tableService = new TableService();
 	//var get = await tableService.getAllTable();
@@ -14,6 +15,11 @@ router.get("/", async function (req, res) {
 router.get("/ViewAllTable", async function (req, res) {
 	var tableService = new TableService();
 	var get = await tableService.getAllTable();
+	res.json(get);
+});
+router.get("/checkStatus", async function (req, res) {
+	var tableService = new TableService();
+	var get = await tableService.getCheck();
 	res.json(get);
 });
 

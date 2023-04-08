@@ -3,11 +3,63 @@ const { ObjectId } = require("mongodb");
 var router = express.Router();
 var CategoryFood = require("./../model/loaimonan");
 var OrderService = require("./../services/orderservice");
+var Food = require("./../model/monan");
+var FService = require("./../services/foodService");
+
+var saveS = require("./../services/savefoodService");
+var statusS = require("./../services/statusService");
 router.get("/", async function (req, res) {
+	// var orderservice = new OrderService();
+	// var order = await orderservice.getOrder();
+	// res.json(order);
+	res.render('order')
+});
+var hientai = "";
+router.post("/getNumberTable", async function (req, res) {
+	var SoBan = req.body.SoBan;
+	hientai = SoBan;
+	res.json({ "SoBan": SoBan })
+});
+router.get("/dataTable", function (req, res) {
+	res.json({ "NameTableNow": hientai });
+});
+router.get("/getDanhMucFood", async function (req, res) {
 	var orderservice = new OrderService();
 	var order = await orderservice.getOrder();
 	res.json(order);
 });
+router.get("/getAllFOOD", async function (req, res) {
+	var fService = new FService();
+	var order = await fService.getFood();
+	res.json(order);
+});
+var getDanhMuc;
+router.post("/getCLickDanhMuc", async function (req, res) {
+	// var NameFood = req.body.NameFood;
+	// console.log(NameFood)
+	var fService = new FService();
+	var order = await fService.findFood(req.body.NameFood);
+	getDanhMuc = order;
+	console.log("KetQua:" + order)
+	res.json(order);
+});
+router.get("/getGetDanhMuc", async function (req, res) {
+	res.json(getDanhMuc);
+});
+
+router.post("/CheckOutBill", async function (req, res) {
+	var SoBan = req.body.Soban;
+	var BanPhu = req.body.Soban2;
+	console.log(SoBan)
+	console.log(BanPhu)
+	var saveSe = new saveS();
+	var staSe = new statusS();
+	var deSta = await staSe.deleteOutBill(BanPhu);
+	var deSave = await saveSe.deleteOutBill(SoBan);
+
+	res.json({ "Message": "True" });
+});
+
 router.post("/insert-Food", async function (req, res) {
 	if (req.body.NameFood == "" || req.body.Price == "" || req.body.NameFood == null || req.body.Price == null) {
 		res.json({ status: false, message: "Missing data NameFood / DateAdd / Price!!" });

@@ -33,5 +33,10 @@ class foodService {
 			"_id": new ObjectId(id)
 		});
 	}
+	async findFood(NameFood) {
+		const query = { CategoryFood: NameFood };
+		const cursor = await this.productCollection2.find(query).toArray();
+		return cursor;
+	}
 }
 module.exports = foodService;
