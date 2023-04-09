@@ -163,6 +163,20 @@ abbr,acronym { border:0;
 
 /* Choose css */
 
+#NumberPeople{
+    color: black;
+    outline: none;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.return button{
+    cursor: pointer;
+    height: 2rem;
+    width: 5rem;
+}
 .Choose-menu {
     height: 100vh;
 }
@@ -365,6 +379,7 @@ marquee{
     margin: 0;
     padding: 1rem;
     text-align: center;
+    cursor: pointer;
 }
 
 .category-list{
@@ -398,6 +413,7 @@ marquee{
     display: flex;
     margin: 10px;
     /* height: 150px; */
+    min-width: 40%;
     flex: 1;
 }
 
@@ -416,6 +432,7 @@ marquee{
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    min-width: 50%;
 }
 
 .food-order::after{
@@ -517,7 +534,7 @@ marquee{
 }
 .container{
     width: 100%;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

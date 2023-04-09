@@ -129,7 +129,7 @@
                         <div class="quantity">-</div>
                         <div class="product-name">${data[i].NameFood}</div>
                     </div>
-                    <div class="price">${data[i].Price}</div>
+                    <div class="price">${data[i].Price} đ</div>
                      </div>`;
                 console.log("Price:" + data[i].Price)
                 arr.push(parseFloat(data[i].Price));
@@ -142,7 +142,7 @@
             for (var i = 0; i < arr.length; i++) {
                 tong += arr[i];
             }
-            htmlStr2 += `${tong}`;
+            htmlStr2 += `${tong} đ`;
             SumAcc.innerHTML = htmlStr2;
             console.log("Tongla:" + tong);
         }

@@ -14,9 +14,18 @@
     <div class="Choose-title">
       <h3>Buffet</h3>
 
-      <input id="NumberPeople" type="text" placeholder="Nhập số vào đây" oninput="validateNumberInput(this)" />
-      <span id="error-msg"></span>
-
+      <div style="display: flex;justify-content: space-around;">
+        <div>
+          <input id="NumberPeople" type="text" placeholder="Mời nhập số người" oninput="validateNumberInput(this)" />
+          <span id="error-msg"></span>
+        </div>
+       
+  
+        <a href="orderTable" class="return">
+          <button>return</button>
+        </a>
+      </div>
+      
       <h3 id="NT">
 
       </h3>
@@ -88,7 +97,7 @@
     ////////Click vao buffet
     function clickItem(Price) {
       var Number = document.getElementById("NumberPeople").value;
-      var result = confirm("Bạn muốn mở bàn?" + Number);
+      var result = confirm("Bạn muốn mở bàn? " + Number + " người");
       var SoBan = document.getElementById("SoBan").innerHTML;
       console.log(SoBan)
       var data = {
@@ -126,7 +135,7 @@
       var get = await response.json();
       console.log(get)
       if (get.Message == "False") {
-        alert('Ban Dang Hoat Dong!!')
+        alert('Hiện tại bàn đang được sử dụng!!')
       }
       else {
         requestData(data)
