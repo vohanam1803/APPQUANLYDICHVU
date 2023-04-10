@@ -2,14 +2,87 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page for Login</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/css/style.css">
+    <title>Page for Login</title>
 </head>
 
 <body>
-  <h1>Login</h1>
+
+    <div class="container-login ">
+        <div class="login-form">
+            <div class="form">
+                <h2 class="form-title text-center">Welcome</h2>
+                <h1 id="demo" style="color: red; text-align: center;"></h1>
+                <div class="form-field">
+                    <input type="text" class="login-name" placeholder=" " name="email" id="email">
+                    <label for="name" class="formlabel">Email</label>
+                </div>
+                <div class="form-field">
+                    <input type="password" class="login-password" placeholder=" " name="password" id="password">
+                    <label for="name" class="formlabel">Password</label>
+                </div>
+                <button type="submit" id="Create" onclick="Click();" class="login-btn">Login</button>
+
+                <div class="text-center another">
+                        <span class="no-account">Don't have an account?</span>
+                        <a href="./Choose.html" class="sign-up">Sign Up</a>
+                    </div> 
+
+            </div>
+        </div>
+    </div>
+    <script>
+        var proApi = 'http://localhost:3000/login/enteruser';
+        var demo = document.getElementById("demo");
+
+        async function createPro(data) {
+            var option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+
+            }
+            const response = await fetch(proApi, option);
+            var data = await response.json();
+            console.log(data);
+            if (data.Message == "Login Success!!") {
+                window.location = "http://localhost:3000/orderTable";
+            }
+            else {
+                var htmlStr = data.Message;
+
+                // htmlStr += `<div style="color: red;">  HANAM </div>`;
+
+                demo.innerHTML = htmlStr;
+            }
+
+            // fetch(proApi, option)
+
+            //     .then(function (res) {
+            //         console.log(res)
+            //         res.json()
+            //     })
+            //     .then()
+            //console.log(option.body)
+        }
+        function Click() {
+            var createBtn = document.querySelector("#create");
+
+            var email = document.querySelector('input[name="email"]').value;
+            var password = document.querySelector('input[name="password"]').value;
+            var formData = {
+                email: email,
+                password: password
+            }
+            //console.log(formData)
+            createPro(formData)
+        }
+    </script>
 </body>
 
 </html>

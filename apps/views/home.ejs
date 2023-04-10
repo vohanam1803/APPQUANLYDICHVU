@@ -5,11 +5,160 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./public/css/style.css">
   <title>Page for choose your option</title>
 </head>
 
 <body>
-  <h1>Option</h1>
+  <div class="Choose-menu">
+    <div class="Choose-title">
+      <h3>Buffet</h3>
+
+      <div style="display: flex;justify-content: space-around;">
+        <div>
+          <input id="NumberPeople" type="text" placeholder="Mời nhập số người" oninput="validateNumberInput(this)" />
+          <span id="error-msg"></span>
+        </div>
+       
+  
+        <a href="orderTable" class="return">
+          <button>return</button>
+        </a>
+      </div>
+      
+      <h3 id="NT">
+
+      </h3>
+    </div>
+    <ul class="choose-list" id="demo">
+      <!-- <li class="choose-item">169K</li>
+      <li class="choose-item">269k</li>
+      <li class="choose-item">369K</li> -->
+    </ul>
+  </div>
+  <script>
+    function validateNumberInput(input) {
+      var value = input.value;
+      var errorMessage = document.getElementById("error-msg");
+      if (isNaN(value)) {
+        errorMessage.innerHTML = "Chỉ được nhập số";
+        input.value = "";
+      } else {
+        errorMessage.innerHTML = "";
+      }
+    }
+  </script>
+  <script>
+
+
+    var proApi = 'http://localhost:3000/home/listBuffet';
+
+    var proApi2 = 'http://localhost:3000/home/dataTable';
+    var demo = document.getElementById("demo");
+    var NT = document.getElementById("NT");
+    ///So Ban Hien tai
+    createPro2()
+    async function createPro2() {
+      var option = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify()
+
+      }
+      const response = await fetch(proApi2, option);
+      var data = await response.json();
+      console.log(data);
+      var htmlStr = "";
+      htmlStr += `<div id="SoBan" style="color: red;">${data.NameTableNow}</div>`;
+      NT.innerHTML = htmlStr;
+    }
+    //Create list buffet
+    createPro();
+    async function createPro() {
+      var option = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify()
+
+      }
+      const response = await fetch(proApi, option);
+      var data = await response.json();
+      console.log(data);
+      var htmlStr = "";
+      for (var i = 0; i < data.length; i++) {
+        htmlStr += `<li class="choose-item" onclick="clickItem('${data[i].Price}')" style="background-image:url(${data[i].Image})">${data[i].Price}</li>`;
+      }
+      demo.innerHTML = htmlStr;
+    }
+    ////////Click vao buffet
+    function clickItem(Price) {
+      var Number = document.getElementById("NumberPeople").value;
+      var result = confirm("Bạn muốn mở bàn? " + Number + " người");
+      var SoBan = document.getElementById("SoBan").innerHTML;
+      console.log(SoBan)
+      var data = {
+        SoBan: SoBan,
+        People: Number,
+        Price: Price,
+      }
+      if (result == true) {
+        if (Number != null && Number != "") {
+
+          //requestData(data)
+          status(data)
+
+        }
+        else {
+          alert('Nhap so nguoi!!!!')
+        }
+      } else {
+
+      }
+
+    }
+    ///Status
+    var ApiStatus = 'http://localhost:3000/home/checkStatus';
+    async function status(data) {
+      var option = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+
+      }
+      const response = await fetch(ApiStatus, option);
+      var get = await response.json();
+      console.log(get)
+      if (get.Message == "False") {
+        alert('Hiện tại bàn đang được sử dụng!!')
+      }
+      else {
+        requestData(data)
+      }
+    }
+
+    var proApi3 = 'http://localhost:3000/Order/getNumberTable';
+    async function requestData(data) {
+      var option = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+
+      }
+      const response = await fetch(proApi3, option);
+      var logdata = await response.json();
+      console.log(logdata);
+      window.location = "http://localhost:3000/Order";
+    }
+  </script>
+
 </body>
 
 </html>
